@@ -1,0 +1,23 @@
+// EXEMPLO DE USO NO MobileBottomNav.tsx (ou Topbar)
+// Adicione nos componentes que precisam de flags:
+
+/*
+import { useFeatureFlag, FeatureFlag } from '@/feature-flags';
+
+export function MobileBottomNav() {
+  const isUslifeEnabled = useFeatureFlag('uslife');
+  
+  return (
+    <nav>
+      <button>Home</button>
+      {isUslifeEnabled && <button>usLIFE</button>}
+      
+      <FeatureFlag name="marketplace" fallback={null}>
+        <button>Marketplace</button>
+      </FeatureFlag>
+      
+      <button>Perfil</button>
+    </nav>
+  );
+}
+*/

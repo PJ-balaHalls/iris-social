@@ -1,0 +1,511 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ========== VARIÁVEIS CSS LIGHT MODE (default) ========== */
+  :root {
+    /* Cores (tokens) */
+    --color-forest: #1B3A2E;
+    --color-emerald: #006D4E;
+    --color-lilac: #9A7CA7;
+    --color-black: #111111;
+    --color-off-white: #FAF7F2;
+    --color-sage-light: #DDE6DA;
+    --color-sage-medium: #B9C8B5;
+    --color-sand: #EDE6DA;
+    --color-rose: #EAD8D6;
+    --color-lavender: #D7D4E6;
+    --color-mist: #D6DEE6;
+    
+    /* Neutros */
+    --neutral-100: #F2F4F3;
+    --neutral-200: #E3E7E6;
+    --neutral-300: #C7CFCC;
+    --neutral-400: #9AA4A1;
+    --neutral-500: #747D79;
+    --neutral-600: #4F5955;
+    --neutral-700: #2A3430;
+    --neutral-800: #161E1A;
+    --neutral-900: #0F1512;
+    
+    /* Tokens semânticos light mode */
+    --color-bg-primary: #FAF7F2;
+    --color-bg-surface: #FFFFFF;
+    --color-bg-subtle: #F2F4F3;
+    
+    --color-text-primary: #1B3A2E;
+    --color-text-secondary: #476153;
+    --color-text-muted: #7A877F;
+    --color-text-inverse: #FAF7F2;
+    
+    --color-accent: #006D4E;
+    --color-accent-hover: #00563E;
+    --color-accent-subtle: #DDEEE6;
+    
+    --color-emotion: #9A7CA7;
+    --color-emotion-subtle: #E9DDEE;
+    
+    --color-border: #E2E7E3;
+    --color-border-strong: #C7CFCC;
+    
+    --color-focus-ring: #9A7CA7;
+    
+    --color-success: #006D4E;
+    --color-warning: #B8872B;
+    --color-danger: #B94A48;
+    --color-info: #4C6F8F;
+    
+    /* Tipografia */
+    --font-display: 'Playfair Display', serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-accessible: 'OpenDyslexic', sans-serif;
+    
+    /* Escala tipográfica */
+    --text-display-size: 4rem;
+    --text-display-line: 4.5rem;
+    --text-h1-size: 3rem;
+    --text-h1-line: 3.5rem;
+    --text-h2-size: 2rem;
+    --text-h2-line: 2.5rem;
+    --text-h3-size: 1.5rem;
+    --text-h3-line: 2rem;
+    --text-lg-size: 1.125rem;
+    --text-lg-line: 1.75rem;
+    --text-base-size: 1rem;
+    --text-base-line: 1.5rem;
+    --text-sm-size: 0.875rem;
+    --text-sm-line: 1.25rem;
+    --text-xs-size: 0.75rem;
+    --text-xs-line: 1rem;
+    
+    /* Espaçamento (base 4px) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-24: 6rem;
+    
+    /* Arredondamento */
+    --radius-none: 0px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px rgba(17, 17, 17, 0.04);
+    --shadow-md: 0 4px 12px rgba(17, 17, 17, 0.08);
+    --shadow-lg: 0 10px 24px rgba(17, 17, 17, 0.10);
+    --shadow-xl: 0 20px 48px rgba(17, 17, 17, 0.12);
+    
+    /* Bordas */
+    --border-subtle: 1px solid #E2E7E3;
+    --border-strong: 1px solid #C7CFCC;
+    
+    /* Z-index */
+    --z-base: 1;
+    --z-header: 10;
+    --z-dropdown: 20;
+    --z-sticky: 30;
+    --z-overlay: 40;
+    --z-modal: 50;
+    --z-toast: 60;
+    --z-aurora: 70;
+    
+    /* Durações */
+    --duration-fast: 120ms;
+    --duration-base: 200ms;
+    --duration-slow: 300ms;
+    --duration-emotional: 400ms;
+    --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  /* ========== DARK MODE ========== */
+  [data-theme="dark"] {
+    --color-bg-primary: #0F1512;
+    --color-bg-surface: #161E1A;
+    --color-bg-subtle: #1E2924;
+    
+    --color-text-primary: #F6FAF7;
+    --color-text-secondary: #C9D3CD;
+    --color-text-muted: #98A59F;
+    --color-text-inverse: #111111;
+    
+    --color-accent: #43C8A1;
+    --color-accent-hover: #65D8B7;
+    --color-accent-subtle: #1A3E33;
+    
+    --color-emotion: #BFA6D6;
+    --color-emotion-subtle: #34283D;
+    
+    --color-border: #2A3430;
+    --color-border-strong: #3E4A45;
+    
+    --color-focus-ring: #BFA6D6;
+    
+    --color-success: #43C8A1;
+    --color-warning: #E1B767;
+    --color-danger: #E17B78;
+    --color-info: #8EAFC3;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
+    --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.40);
+    --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.48);
+    
+    --border-subtle: 1px solid #2A3430;
+    --border-strong: 1px solid #3E4A45;
+  }
+  
+  /* ========== MODO DISLEXIA ========== */
+  [data-reading-mode="dyslexia"] {
+    --font-sans: var(--font-accessible);
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+  }
+  
+  [data-reading-mode="dyslexia"] a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  
+  /* ========== AJUSTE DE TAMANHO DE FONTE ========== */
+  html[data-font-size="small"] {
+    font-size: 90%;
+  }
+  
+  html[data-font-size="medium"] {
+    font-size: 100%;
+  }
+  
+  html[data-font-size="large"] {
+    font-size: 120%;
+  }
+  
+  /* ========== REDUÇÃO DE MOVIMENTO ========== */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* ========== ESTILOS BASE ========== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-base-size);
+    line-height: var(--text-base-line);
+    transition: background-color var(--duration-base) ease-out,
+                color var(--duration-base) ease-out;
+  }
+  
+  /* ========== TIPOGRAFIA ========== */
+  h1, .h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1-size);
+    line-height: var(--text-h1-line);
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+  
+  h2, .h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2-size);
+    line-height: var(--text-h2-line);
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  
+  h3, .h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-line);
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  
+  /* ========== LINKS ========== */
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease-out;
+  }
+  
+  a:hover {
+    color: var(--color-accent-hover);
+  }
+  
+  a:focus-visible {
+    outline: 3px solid var(--color-focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  
+  /* ========== BOTÕES ========== */
+  button,
+  .button {
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: var(--text-base-size);
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    transition: all var(--duration-base) ease-out;
+  }
+  
+  button:focus-visible,
+  .button:focus-visible {
+    outline: 3px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+  
+  button:disabled,
+  .button:disabled {
+    opacity: 0.48;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  /* Botão primário */
+  .button-primary {
+    background-color: var(--color-accent);
+    color: white;
+  }
+  
+  .button-primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+  
+  /* Botão secundário */
+  .button-secondary {
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border: var(--border-subtle);
+  }
+  
+  .button-secondary:hover {
+    background-color: var(--color-bg-subtle);
+  }
+  
+  /* Botão ghost */
+  .button-ghost {
+    background-color: transparent;
+    color: var(--color-text-primary);
+  }
+  
+  .button-ghost:hover {
+    background-color: var(--color-bg-subtle);
+  }
+  
+  /* ========== INPUTS ========== */
+  input,
+  textarea,
+  select {
+    width: 100%;
+    background-color: var(--color-bg-surface);
+    border: var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-base-size);
+    transition: border-color var(--duration-base) ease-out,
+                box-shadow var(--duration-base) ease-out;
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-text-muted);
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--color-emotion);
+    box-shadow: 0 0 0 3px rgba(154, 124, 167, 0.20);
+  }
+  
+  input[aria-invalid="true"],
+  textarea[aria-invalid="true"],
+  select[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+  
+  /* ========== CARDS ========== */
+  .card {
+    background-color: var(--color-bg-surface);
+    border: var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-4);
+    transition: transform var(--duration-emotional) var(--ease-out-soft),
+                box-shadow var(--duration-base) ease-out;
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* ========== TAGS ========== */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.25rem 0.625rem;
+    background-color: var(--color-sage-light);
+    color: var(--color-forest);
+    font-size: var(--text-sm-size);
+  }
+  
+  /* ========== CHIPS ========== */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    border-radius: 9999px;
+    border: var(--border-subtle);
+    padding: 0.375rem 0.75rem;
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm-size);
+  }
+  
+  /* ========== SKELETON LOADING ========== */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--neutral-100) 0%,
+      var(--neutral-200) 50%,
+      var(--neutral-100) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.4s ease-in-out infinite;
+    border-radius: var(--radius-md);
+  }
+  
+  @keyframes skeleton-loading {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton {
+      animation: none;
+    }
+  }
+  
+  /* ========== CONTAINER ========== */
+  .container {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+  
+  @media (min-width: 768px) {
+    .container {
+      padding-inline: var(--space-8);
+    }
+  }
+  
+  /* ========== GRID DE MEMÓRIAS ========== */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-4);
+  }
+  
+  @media (min-width: 768px) {
+    .memory-grid {
+      gap: var(--space-6);
+    }
+  }
+  
+  /* ========== UTILITÁRIOS ========== */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  /* Focus visível global */
+  :focus-visible {
+    outline: 3px solid var(--color-focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+/* Skeletons específicos para componentes - versão manual (sem @apply problemático) */
+.skeleton-text,
+.skeleton-input,
+.skeleton-icon,
+.skeleton-card-image,
+.skeleton-tag {
+  animation: pulse 1.5s ease-in-out infinite;
+  background: linear-gradient(90deg, 
+    rgba(0, 109, 78, 0.2) 0%, 
+    rgba(0, 109, 78, 0.4) 50%, 
+    rgba(0, 109, 78, 0.2) 100%);
+  background-size: 200% 100%;
+}
+
+.skeleton-text {
+  border-radius: 0.375rem;
+}
+
+.skeleton-input {
+  border-radius: 0.375rem;
+}
+
+.skeleton-icon {
+  border-radius: 9999px;
+}
+
+.skeleton-card-image {
+  border-radius: 0.5rem;
+}
+
+.skeleton-tag {
+  border-radius: 9999px;
+}
+
+@keyframes pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

@@ -1,0 +1,21 @@
+// EXEMPLO DE INTEGRAÇÃO NO LAYOUT DO APP PRINCIPAL
+// Adicione isto em src/app/(app)/layout.tsx:
+
+/*
+import { FeatureFlagProvider } from '@/feature-flags';
+import { getUserFeatureFlags } from '@/lib/supabase/featureFlags';
+
+export default async function AppLayout({ children }) {
+  // Obter userId da sessão (substitua pela sua lógica real)
+  const userId = 'user-123'; // viria do cookie/session
+  
+  const flags = await getUserFeatureFlags(userId);
+  
+  return (
+    <FeatureFlagProvider flags={flags}>
+      {/* seu AppShell original */}
+      {children}
+    </FeatureFlagProvider>
+  );
+}
+*/
