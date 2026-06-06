@@ -15,20 +15,20 @@ function DesktopBotanicalBackground({ src }: { src: string }) {
       <div className="absolute inset-0 bg-[#FAF7F2]" />
 
       <div
-        className="absolute inset-y-0 left-0 w-[68vw] opacity-[0.94] mix-blend-multiply"
+        className="absolute inset-y-0 left-0 w-[70vw] opacity-[0.96] mix-blend-multiply"
         style={{
           backgroundImage: `url(${src})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'left center',
           backgroundSize: 'auto 100%',
           WebkitMaskImage:
-            'linear-gradient(to right, black 0%, black 66%, rgba(0,0,0,0.72) 78%, transparent 100%)',
+            'linear-gradient(to right, black 0%, black 68%, rgba(0,0,0,0.72) 82%, transparent 100%)',
           maskImage:
-            'linear-gradient(to right, black 0%, black 66%, rgba(0,0,0,0.72) 78%, transparent 100%)',
+            'linear-gradient(to right, black 0%, black 68%, rgba(0,0,0,0.72) 82%, transparent 100%)',
         }}
       />
 
-      <div className="absolute inset-y-0 left-[36vw] w-[34vw] bg-gradient-to-r from-transparent via-[#FAF7F2]/82 to-[#FAF7F2]" />
+      <div className="absolute inset-y-0 left-[38vw] w-[40vw] bg-gradient-to-r from-transparent via-[#FAF7F2]/80 to-[#FAF7F2]" />
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_16%,rgba(0,44,31,0.08),transparent_34%),radial-gradient(circle_at_50%_82%,rgba(154,124,167,0.08),transparent_38%)]" />
     </div>
@@ -38,24 +38,19 @@ function DesktopBotanicalBackground({ src }: { src: string }) {
 function MobileBotanicalBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-[#FAF7F2]" />
-
       <div
-        className="absolute inset-x-0 top-[72px] h-[58svh] opacity-[0.96] mix-blend-multiply"
+        className="absolute inset-0 opacity-[0.98] mix-blend-multiply"
         style={{
           backgroundImage: `url(${AUTH_BACKGROUNDS.mobile})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
-          backgroundSize: 'contain',
-          WebkitMaskImage:
-            'linear-gradient(to bottom, transparent 0%, black 10%, black 72%, rgba(0,0,0,0.58) 84%, transparent 100%)',
-          maskImage:
-            'linear-gradient(to bottom, transparent 0%, black 10%, black 72%, rgba(0,0,0,0.58) 84%, transparent 100%)',
+          backgroundSize: 'cover',
         }}
       />
 
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent via-[#FAF7F2]/86 to-[#FAF7F2]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(0,44,31,0.08),transparent_34%),radial-gradient(circle_at_82%_86%,rgba(154,124,167,0.08),transparent_36%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(0,44,31,0.08),transparent_34%),radial-gradient(circle_at_82%_86%,rgba(154,124,167,0.08),transparent_36%)]" />
+
+      <div className="absolute inset-x-0 bottom-0 h-[42svh] bg-gradient-to-b from-transparent via-[#FAF7F2]/76 to-[#FAF7F2]" />
     </div>
   );
 }
@@ -71,13 +66,13 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               opacity: 0.72;
             }
             50% {
-              transform: translateY(7px);
+              transform: translateY(8px);
               opacity: 1;
             }
           }
 
           .iris-scroll-cue {
-            animation: iris-scroll-cue 2.35s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+            animation: iris-scroll-cue 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
           }
 
           @media (prefers-reduced-motion: reduce) {
@@ -164,7 +159,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
       {/* Mobile */}
       <section className="md:hidden">
-        <div className="relative flex min-h-[94svh] flex-col overflow-hidden px-6 pb-8 pt-7">
+        <div className="relative flex min-h-[100svh] flex-col overflow-hidden px-6 pb-8 pt-7">
           <MobileBotanicalBackground />
 
           <div className="relative z-10">
@@ -186,7 +181,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               aria-label="Descer para continuar"
             >
               <span>Deslize para continuar</span>
-              <span className="iris-scroll-cue flex h-10 w-10 items-center justify-center rounded-full border border-[#DDE6DA] bg-white/80 text-base shadow-[0_8px_22px_rgba(17,17,17,0.08)] backdrop-blur">
+              <span className="iris-scroll-cue flex h-10 w-10 items-center justify-center rounded-full border border-[#DDE6DA] bg-white/82 text-base shadow-[0_8px_22px_rgba(17,17,17,0.08)] backdrop-blur">
                 ↓
               </span>
             </a>

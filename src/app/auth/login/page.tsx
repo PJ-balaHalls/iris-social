@@ -4,15 +4,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { loginAction } from '@/lib/actions/auth.actions';
 import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
+import { AuthUserErrorAlert } from '@/app/auth/components/AuthUserErrorAlert';
 import type { AuthActionError } from '@/lib/erros/auth';
 
 export default function LoginPage() {
   const [error, setError] = useState<AuthActionError | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (loading) return;
@@ -25,19 +25,22 @@ export default function LoginPage() {
     try {
       const response = await loginAction(formData);
 
-      if (response?.error) {
+      if (response?.ok === false) {
         setError(response);
         setLoading(false);
       }
     } catch {
       setError({
-        error: 'Não conseguimos abrir seu espaço agora. Tente novamente em instantes.',
+        ok: false,
         code: 'IRIS_AUTH_LOGIN_999',
-        help: 'Verifique sua conexão e tente novamente.',
+        title: 'Não conseguimos abrir seu espaço.',
+        message: 'Algo inesperado aconteceu durante o acesso.',
+        action: 'Tente novamente em alguns instantes.',
       });
+
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div className="space-y-8">
@@ -55,24 +58,7 @@ export default function LoginPage() {
         </p>
       </header>
 
-      {error && (
-        <Card
-          hover={false}
-          className="rounded-[22px] border border-[#F3C9C7] !bg-[#FCE8E8] p-4 shadow-none"
-        >
-          <p role="alert" className="text-sm font-medium leading-6 text-[#B3261E]">
-            {error.error}
-          </p>
-
-          <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[#8F312D]">
-            {error.code}
-          </p>
-
-          <p className="mt-2 text-xs leading-5 text-[#8F312D]">
-            {error.help}
-          </p>
-        </Card>
-      )}
+      {error && <AuthUserErrorAlert error={error} />}
 
       <form onSubmit={handleSubmit} className="space-y-5" aria-busy={loading}>
         <Input
@@ -89,7 +75,10 @@ export default function LoginPage() {
 
         <div className="space-y-1">
           <div className="mb-1.5 flex items-center justify-between gap-4">
-            <label className="text-sm font-medium text-[#002c1f]" htmlFor="password">
+            <label
+              className="text-sm font-medium text-[#002c1f]"
+              htmlFor="password"
+            >
               Senha
             </label>
 

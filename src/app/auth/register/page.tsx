@@ -4,15 +4,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { registerAction } from '@/lib/actions/auth.actions';
 import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
-import { AUTH_REGISTER_ERRORS, type AuthActionError } from '@/lib/erros/auth';
+import { AuthUserErrorAlert } from '@/app/auth/components/AuthUserErrorAlert';
+import {
+  AUTH_REGISTER_ERRORS,
+  type AuthActionError,
+} from '@/lib/erros/auth';
 
 export default function RegisterPage() {
   const [error, setError] = useState<AuthActionError | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (loading) return;
@@ -23,13 +26,15 @@ export default function RegisterPage() {
     const formData = new FormData(event.currentTarget);
     const password = formData.get('password');
 
-    if (typeof password !== 'string' || password.length < 8) {
+    if (typeof password !== 'string' || password.trim().length < 8) {
       const weakPasswordError = AUTH_REGISTER_ERRORS.WEAK_PASSWORD;
 
       setError({
-        error: weakPasswordError.userMessage,
+        ok: false,
         code: weakPasswordError.code,
-        help: weakPasswordError.howToFix,
+        title: weakPasswordError.userTitle,
+        message: weakPasswordError.userMessage,
+        action: weakPasswordError.userAction,
       });
 
       setLoading(false);
@@ -39,19 +44,22 @@ export default function RegisterPage() {
     try {
       const response = await registerAction(formData);
 
-      if (response?.error) {
+      if (response?.ok === false) {
         setError(response);
         setLoading(false);
       }
     } catch {
       setError({
-        error: 'Não conseguimos preparar seu espaço agora. Tente novamente em instantes.',
+        ok: false,
         code: 'IRIS_AUTH_REGISTER_999',
-        help: 'Verifique sua conexão e tente novamente.',
+        title: 'Não conseguimos preparar seu espaço.',
+        message: 'Algo inesperado aconteceu durante a criação da conta.',
+        action: 'Tente novamente em alguns instantes.',
       });
+
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div className="space-y-8">
@@ -69,24 +77,7 @@ export default function RegisterPage() {
         </p>
       </header>
 
-      {error && (
-        <Card
-          hover={false}
-          className="rounded-[22px] border border-[#F3C9C7] !bg-[#FCE8E8] p-4 shadow-none"
-        >
-          <p role="alert" className="text-sm font-medium leading-6 text-[#B3261E]">
-            {error.error}
-          </p>
-
-          <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[#8F312D]">
-            {error.code}
-          </p>
-
-          <p className="mt-2 text-xs leading-5 text-[#8F312D]">
-            {error.help}
-          </p>
-        </Card>
-      )}
+      {error && <AuthUserErrorAlert error={error} />}
 
       <form onSubmit={handleSubmit} className="space-y-5" aria-busy={loading}>
         <Input
