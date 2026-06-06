@@ -1,88 +1,140 @@
-'use client'
+'use client';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import { loginAction } from '@/lib/actions/auth.actions';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
+import type { AuthActionError } from '@/lib/erros/auth';
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<AuthActionError | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (loading) return;
+
     setLoading(true);
     setError(null);
-    const formData = new FormData(e.currentTarget);
-    
+
+    const formData = new FormData(event.currentTarget);
+
     try {
       const response = await loginAction(formData);
+
       if (response?.error) {
-        setError(response.error);
+        setError(response);
         setLoading(false);
       }
-    } catch (err) {
-      setError('Ocorreu um erro inesperado.');
+    } catch {
+      setError({
+        error: 'Não conseguimos abrir seu espaço agora. Tente novamente em instantes.',
+        code: 'IRIS_AUTH_LOGIN_999',
+        help: 'Verifique sua conexão e tente novamente.',
+      });
       setLoading(false);
     }
   };
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="font-display text-3xl text-[#1B3A2E] mb-2">Que bom ter você aqui.</h2>
-        <p className="text-[#476153]">Acesse seu espaço seguro de memórias.</p>
-      </div>
+      <header>
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.22em] text-[#747D79]">
+          Acesso seguro
+        </p>
+
+        <h1 className="font-display text-3xl leading-tight tracking-[-0.02em] text-[#002c1f]">
+          Que bom ter você aqui.
+        </h1>
+
+        <p className="mt-3 text-sm leading-6 text-[#476153] sm:text-base">
+          Acesse seu espaço seguro de memórias, cartas e vínculos preservados.
+        </p>
+      </header>
 
       {error && (
-        <div className="p-4 bg-[#FCE8E8] text-[#B3261E] rounded-xl text-sm font-medium">
-          {error}
-        </div>
+        <Card
+          hover={false}
+          className="rounded-[22px] border border-[#F3C9C7] !bg-[#FCE8E8] p-4 shadow-none"
+        >
+          <p role="alert" className="text-sm font-medium leading-6 text-[#B3261E]">
+            {error.error}
+          </p>
+
+          <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[#8F312D]">
+            {error.code}
+          </p>
+
+          <p className="mt-2 text-xs leading-5 text-[#8F312D]">
+            {error.help}
+          </p>
+        </Card>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div className="space-y-1">
-          <label className="text-sm font-medium text-[#476153]" htmlFor="email">E-mail</label>
-          <input 
-            id="email"
-            name="email"
-            type="email" 
-            required 
-            placeholder="voce@exemplo.com"
-            className="w-full p-4 rounded-xl border border-[#E2E7E3] focus:border-[#9A7CA7] focus:ring-1 focus:ring-[#9A7CA7] outline-none transition-all bg-white text-[#1B3A2E]"
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-5" aria-busy={loading}>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          label="E-mail"
+          required
+          autoComplete="email"
+          inputMode="email"
+          placeholder="voce@exemplo.com"
+          disabled={loading}
+        />
 
         <div className="space-y-1">
-          <div className="flex justify-between items-center">
-            <label className="text-sm font-medium text-[#476153]" htmlFor="password">Senha</label>
-            <Link href="/auth/forgot-password" className="text-sm text-[#9A7CA7] hover:underline">Esqueceu a senha?</Link>
+          <div className="mb-1.5 flex items-center justify-between gap-4">
+            <label className="text-sm font-medium text-[#002c1f]" htmlFor="password">
+              Senha
+            </label>
+
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm font-semibold text-emerald-800 transition-colors hover:text-emerald-900 hover:underline"
+            >
+              Esqueceu a senha?
+            </Link>
           </div>
-          <input 
+
+          <Input
             id="password"
             name="password"
-            type="password" 
-            required 
+            type="password"
+            required
+            autoComplete="current-password"
             placeholder="••••••••"
-            className="w-full p-4 rounded-xl border border-[#E2E7E3] focus:border-[#9A7CA7] focus:ring-1 focus:ring-[#9A7CA7] outline-none transition-all bg-white text-[#1B3A2E]"
+            disabled={loading}
           />
         </div>
 
-        <button 
-          type="submit" 
+        <Button
+          type="submit"
+          variant="auth"
+          size="lg"
+          loading={loading}
           disabled={loading}
-          className="w-full bg-[#1B3A2E] text-white py-4 rounded-xl font-medium hover:bg-[#00563E] transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+          className="mt-4 min-h-12 w-full"
         >
           {loading ? 'Destrancando seu espaço...' : 'Entrar no IRIS'}
-        </button>
+        </Button>
       </form>
 
-      <div className="text-center">
-        <p className="text-[#7A877F] text-sm">
+      <footer className="text-center">
+        <p className="text-sm text-[#747D79]">
           Ainda não tem o seu espaço?{' '}
-          <Link href="/auth/register" className="text-[#1B3A2E] font-bold hover:underline">
+          <Link
+            href="/auth/register"
+            className="font-bold text-emerald-800 transition-colors hover:text-emerald-900 hover:underline"
+          >
             Criar conta
           </Link>
         </p>
-      </div>
+      </footer>
     </div>
   );
 }

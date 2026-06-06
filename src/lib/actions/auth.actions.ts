@@ -1,56 +1,117 @@
-'use server'
+'use server';
 
-import { createServer } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { createServer } from '@/lib/supabase/server';
+import {
+  AUTH_LOGIN_ERRORS,
+  AUTH_REGISTER_ERRORS,
+  logAuthError,
+  resolveLoginAuthError,
+  resolveRegisterAuthError,
+  toAuthActionError,
+} from '@/lib/erros/auth';
 
-export async function loginAction(formData: FormData) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const supabase = createServer();
+function getRequiredString(formData: FormData, key: string) {
+  const value = formData.get(key);
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    // Tratamento de Erro IRIS
-    console.error('IRIS_AUTH_001:', error.message);
-    return { error: 'E-mail ou senha incorretos. Suas memórias estão protegidas.' };
+  if (typeof value !== 'string') {
+    return '';
   }
 
-  // Verifica se o usuário já completou o onboarding lendo o banco de dados
-  const { data: profile } = await supabase
+  return value.trim();
+}
+
+export async function loginAction(formData: FormData) {
+  const email = getRequiredString(formData, 'email');
+  const password = getRequiredString(formData, 'password');
+
+  if (!email || !password) {
+    const irisError = AUTH_LOGIN_ERRORS.EMPTY_CREDENTIALS;
+    logAuthError(irisError, { hasEmail: Boolean(email), hasPassword: Boolean(password) });
+    return toAuthActionError(irisError);
+  }
+
+  const supabase = createServer();
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    const irisError = resolveLoginAuthError(error);
+    logAuthError(irisError, {
+      providerMessage: error.message,
+      providerStatus: error.status,
+      providerCode: error.code,
+      email,
+    });
+
+    return toAuthActionError(irisError);
+  }
+
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('onboarding_completed')
     .eq('id', data.user.id)
     .single();
 
+  if (profileError && profileError.code !== 'PGRST116') {
+    const irisError = AUTH_LOGIN_ERRORS.PROFILE_LOOKUP_FAILED;
+    logAuthError(irisError, {
+      providerMessage: profileError.message,
+      providerCode: profileError.code,
+      userId: data.user.id,
+    });
+
+    return toAuthActionError(irisError);
+  }
+
   if (profile?.onboarding_completed) {
     redirect('/app/home');
-  } else {
-    redirect('/onboarding/welcome');
   }
+
+  redirect('/onboarding/welcome');
 }
 
 export async function registerAction(formData: FormData) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const supabase = createServer();
+  const email = getRequiredString(formData, 'email');
+  const password = getRequiredString(formData, 'password');
 
-  const { error } = await supabase.auth.signUp({ 
-    email, 
+  if (!email || !password) {
+    const irisError = AUTH_REGISTER_ERRORS.EMPTY_CREDENTIALS;
+    logAuthError(irisError, { hasEmail: Boolean(email), hasPassword: Boolean(password) });
+    return toAuthActionError(irisError);
+  }
+
+  if (password.length < 8) {
+    const irisError = AUTH_REGISTER_ERRORS.WEAK_PASSWORD;
+    logAuthError(irisError, { email, passwordLength: password.length });
+    return toAuthActionError(irisError);
+  }
+
+  const supabase = createServer();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'http://localhost:3000';
+
+  const { error } = await supabase.auth.signUp({
+    email,
     password,
     options: {
-      // Evita o redirecionamento automático se a confirmação de email estiver ativa no Supabase
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
-    }
+      emailRedirectTo: `${siteUrl}/auth/callback`,
+    },
   });
 
   if (error) {
-    console.error('IRIS_AUTH_003:', error.message);
-    return { error: 'Não foi possível preparar o seu espaço. Tente novamente ou use outro e-mail.' };
+    const irisError = resolveRegisterAuthError(error);
+    logAuthError(irisError, {
+      providerMessage: error.message,
+      providerStatus: error.status,
+      providerCode: error.code,
+      email,
+    });
+
+    return toAuthActionError(irisError);
   }
 
-  // Se o Supabase estiver configurado para exigir confirmação de e-mail,
-  // aqui deveríamos mandar para uma tela de "Verifique seu e-mail".
-  // Supondo login direto após registro para o escopo atual:
   redirect('/onboarding/welcome');
 }
