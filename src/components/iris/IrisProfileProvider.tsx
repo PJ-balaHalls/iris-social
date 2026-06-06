@@ -77,7 +77,8 @@ export function IrisProfileProvider({ children }: IrisProfileProviderProps) {
           return;
         }
 
-        const hasBasicInfo = Boolean(data.first_name && data.birth_date);
+        const profileName = data.first_name || data.full_name;
+        const hasBasicInfo = Boolean(profileName && data.birth_date);
         const hasUsername = Boolean(data.username);
 
         if (!hasBasicInfo) {
@@ -94,7 +95,7 @@ export function IrisProfileProvider({ children }: IrisProfileProviderProps) {
 
         const mappings: Array<[any, any]> = [
           ['ownerUserId', user.id],
-          ['firstName', data.first_name || ''],
+          ['firstName', data.first_name || data.full_name || ''],
           ['socialName', data.social_name || ''],
           ['cpf', ''],
           ['birthDate', data.birth_date || ''],

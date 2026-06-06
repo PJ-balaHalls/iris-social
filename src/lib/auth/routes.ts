@@ -14,6 +14,7 @@ export const IRIS_ROUTES = {
 
 export type IrisProfileRouteState = {
   first_name?: string | null;
+  full_name?: string | null;
   birth_date?: string | null;
   username?: string | null;
   onboarding_status?: string | null;
@@ -41,7 +42,7 @@ export function isEssentialOnboardingRoute(pathname: string) {
 export function getPostAuthDestinationFromProfile(profile?: IrisProfileRouteState | null) {
   if (!profile) return IRIS_ROUTES.onboardingBasicInfo;
 
-  const hasBasicInfo = Boolean(profile.first_name && profile.birth_date);
+  const hasBasicInfo = Boolean((profile.first_name || profile.full_name) && profile.birth_date);
   const hasUsername = Boolean(profile.username);
 
   if (!hasBasicInfo) return IRIS_ROUTES.onboardingBasicInfo;

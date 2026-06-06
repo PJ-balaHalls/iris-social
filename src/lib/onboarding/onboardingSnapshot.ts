@@ -84,7 +84,9 @@ export function buildProfilePayload(state: OnboardingStateLike, profileId: strin
   const now = new Date().toISOString();
   const completion = getProfileCompletion(state);
 
-  const essentialCompleted = Boolean(state.firstName && state.birthDate && state.username);
+  const cleanName = state.firstName?.trim() || null;
+  const essentialCompleted = Boolean(cleanName && state.birthDate && state.username);
+
   const onboardingStatus = completion.rewardEligible
     ? 'completed'
     : essentialCompleted
@@ -94,14 +96,13 @@ export function buildProfilePayload(state: OnboardingStateLike, profileId: strin
   return {
     id: profileId,
 
-    first_name: state.firstName || null,
+    full_name: cleanName,
+    first_name: cleanName,
+
     social_name: state.socialName || null,
-
-    // Segurança: CPF não faz parte do cadastro essencial.
-    // Quando houver necessidade legal, salvar via fluxo dedicado e protegido.
     cpf: null,
-
     birth_date: state.birthDate || null,
+
     avatar_url: state.avatarUrl || null,
     cover_url: state.coverUrl || null,
     color_symbol: state.colorSymbol || null,
@@ -140,6 +141,7 @@ export function buildProfilePayload(state: OnboardingStateLike, profileId: strin
     plan_data: state.planData || {},
     plan_completed_at: state.planData?.completedAt || null,
 
+    onboarding_completed: essentialCompleted,
     onboarding_status: onboardingStatus,
     onboarding_completed_at: essentialCompleted ? now : null,
 
@@ -147,7 +149,6 @@ export function buildProfilePayload(state: OnboardingStateLike, profileId: strin
     profile_completion_data: completion,
     profile_completion_reward_status: completion.rewardStatus,
 
-    // Recompensas reais devem ser validadas no servidor.
     profile_badges: [],
     unlocked_themes: [],
 
