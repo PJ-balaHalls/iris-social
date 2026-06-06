@@ -1,3 +1,4 @@
+import { AccessibilityRuntime } from '@/components/accessibility/AccessibilityRuntime';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 
@@ -38,7 +39,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <AccessibilityRuntime />{children}</body>
     </html>
   );
 }

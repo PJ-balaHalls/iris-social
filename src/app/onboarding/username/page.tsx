@@ -1,32 +1,123 @@
-'use client'
+'use client';
+
+import { useCallback, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/global/Loader/Spinner';
 import { useOnboardingStore } from '@/lib/store/onboardingStore';
-import { useState } from 'react';
+import { OnboardingBottomActions } from '@/components/onboarding/OnboardingBottomActions';
+import { OnboardingFieldLine } from '@/components/onboarding/OnboardingFieldLine';
+import { OnboardingMinimalStep } from '@/components/onboarding/OnboardingMinimalStep';
+import { UsernameAvailabilityField } from './components/UsernameAvailabilityField';
 
 export default function UsernamePage() {
   const router = useRouter();
-  const { updateField } = useOnboardingStore();
-  const [username, setUsername] = useState('');
+  const { firstName, socialName, username, updateField } = useOnboardingStore();
 
-  const handleNext = () => {
-    updateField('username', username);
-    router.push('/onboarding/personality');
-  };
+  const [draftUsername, setDraftUsername] = useState(username);
+  const [available, setAvailable] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [alert, setAlert] = useState('');
+
+  const handleAvailabilityChange = useCallback((value: boolean) => {
+    setAvailable(value);
+  }, []);
+
+  function handleUsernameChange(value: string) {
+    setDraftUsername(value);
+    setAlert('');
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!available) {
+      setAlert('Escolha um nome disponível para continuar.');
+      return;
+    }
+
+    setSaving(true);
+    setAlert('');
+    updateField('username', draftUsername);
+    router.push('/onboarding/finish');
+  }
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="text-center">
-        <h1 className="font-display text-3xl text-[#1B3A2E]">Seu identificador único</h1>
-        <p className="text-[#7A877F] text-sm mt-2">Este será seu @ no IRIS.</p>
-      </div>
-      <div className="relative">
-        <span className="absolute left-4 top-4 text-[#7A877F]">@</span>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s/g, ''))} className="w-full p-4 pl-10 rounded-xl border border-[#E2E7E3] focus:border-[#9A7CA7] outline-none transition-all bg-white" placeholder="identidade" />
-      </div>
-      <div className="flex justify-between pt-4">
-        <button onClick={() => router.back()} className="text-[#7A877F] px-4 py-2 rounded-lg">Voltar</button>
-        <button onClick={handleNext} disabled={username.length < 3} className="bg-[#1B3A2E] text-[#FAF7F2] px-6 py-2 rounded-lg disabled:opacity-50">Validar e Continuar</button>
-      </div>
-    </div>
+    <OnboardingMinimalStep
+      eyebrow="Identidade pública"
+      title="Escolha seu @."
+    >
+      <form onSubmit={handleSubmit} className="mx-auto w-full max-w-2xl">
+        {alert && (
+          <div className="mb-4 rounded-[20px] border border-[#E8CF8B] bg-[#FFF7DC]/70 px-4 py-3 text-sm leading-6 text-[#7A5A12]">
+            {alert}
+          </div>
+        )}
+
+        <div data-iris-onboarding-surface className="rounded-[26px] bg-white/[0.22] px-4 py-2 backdrop-blur-sm">
+          <OnboardingFieldLine>
+            <UsernameAvailabilityField
+              value={draftUsername}
+              firstName={firstName}
+              socialName={socialName}
+              onChange={handleUsernameChange}
+              onAvailabilityChange={handleAvailabilityChange}
+            />
+          </OnboardingFieldLine>
+
+          <OnboardingFieldLine>
+            <p className="text-sm text-[#747D79]">Preview</p>
+
+            <p className="mt-2 font-display text-3xl tracking-[-0.035em] text-[#002c1f]">
+              {socialName || firstName || 'Seu nome'}
+            </p>
+
+            <p className="mt-1 font-mono text-sm text-[#476153]">
+              @{draftUsername || 'username'}
+            </p>
+          </OnboardingFieldLine>
+        </div>
+
+        <OnboardingBottomActions
+          helpTitle="O que essa etapa faz"
+          help={
+            <>
+              <p>O @ é o identificador público do seu perfil dentro da IRIS.</p>
+              <p>Ele precisa ser único e pode ser usado para convites, busca e vínculo com outros espaços.</p>
+            </>
+          }
+          left={
+            <Button
+              type="button"
+              variant="ghost"
+              size="lg"
+              className="min-h-12 rounded-[18px] px-6 text-[#747D79] hover:text-[#002c1f]"
+              disabled={saving}
+              onClick={() => router.back()}
+            >
+              Voltar
+            </Button>
+          }
+          right={
+            <Button
+              type="submit"
+              variant="auth"
+              size="lg"
+              disabled={!available || saving}
+              className="min-h-12 rounded-[18px] px-8"
+            >
+              {saving ? (
+                <span className="inline-flex items-center gap-3">
+                  <Spinner size="sm" tone="light" label="Salvando username..." />
+                  Salvando...
+                </span>
+              ) : (
+                'Continuar'
+              )}
+            </Button>
+          }
+        />
+      </form>
+    </OnboardingMinimalStep>
   );
 }

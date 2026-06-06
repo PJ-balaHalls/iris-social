@@ -1,5 +1,7 @@
 'use client';
 
+import { redirectAfterAuth } from '@/lib/auth/clientRedirect';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import { loginAction } from '@/lib/actions/auth.actions';
