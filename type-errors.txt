@@ -1,2 +1,1 @@
-src/app/(app)/marketplace/_utils/marketplaceCatalog.ts(4,14): error TS2367: This comparison appears to be unintentional because the types '"draft" | "published" | "archived" | "native"' and '"marketplace"' have no overlap.
 src/app/(app)/settings/appearance/_components/ThemePreviewCard.tsx(4,15): error TS2459: Module '"@/lib/themes/themeCatalog"' declares 'IrisThemeDefinition' locally, but it is not exported.
