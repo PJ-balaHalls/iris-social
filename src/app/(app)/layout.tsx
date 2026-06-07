@@ -1,3 +1,4 @@
+import { IrisAppProviders } from './IrisAppProviders';
 import { Suspense } from 'react';
 import { FeatureFlagProvider } from '@/feature-flags';
 import { defaultFlags } from '@/feature-flags/flags.config';
@@ -12,7 +13,7 @@ export default function AppLayout({
   return (
     <FeatureFlagProvider flags={defaultFlags}>
       <Suspense fallback={<Spinner fullScreen withBrand label="Carregando IRIS..." />}>
-        <NavigationLoadingProvider>{children}</NavigationLoadingProvider>
+        <NavigationLoadingProvider><IrisAppProviders>{children}</IrisAppProviders></NavigationLoadingProvider>
       </Suspense>
     </FeatureFlagProvider>
   );

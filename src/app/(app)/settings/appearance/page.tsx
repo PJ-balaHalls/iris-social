@@ -1,5 +1,7 @@
-import { SettingsSectionPage } from '@/components/settings/SettingsSectionPage';
+import { AppearanceSettingsClient } from './AppearanceSettingsClient';
 
-export default function SettingsRoutePage() {
-  return <SettingsSectionPage sectionKey="appearance" />;
+export const dynamic = 'force-dynamic';
+
+export default function AppearanceSettingsPage() {
+  return <AppearanceSettingsClient />;
 }

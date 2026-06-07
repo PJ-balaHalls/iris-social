@@ -1,3 +1,6 @@
+import { IrisThemeScript } from '@/components/theme/IrisThemeScript';
+import { IrisThemeProvider } from '@/components/theme/IrisThemeProvider';
+import '@/styles/iris-theme.css';
 import { AccessibilityRuntime } from '@/components/accessibility/AccessibilityRuntime';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
@@ -38,9 +41,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className="antialiased">
-        <AccessibilityRuntime />{children}</body>
+        <IrisThemeScript />
+        <IrisThemeProvider>
+        <AccessibilityRuntime />{children}        </IrisThemeProvider>
+      </body>
     </html>
   );
 }

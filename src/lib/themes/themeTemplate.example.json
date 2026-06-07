@@ -1,0 +1,59 @@
+{
+  "slug": "meu-tema",
+  "name": "Meu Tema",
+  "authorName": "Seu nome",
+  "category": "themes",
+  "pricingModel": "free",
+  "priceCents": 0,
+  "coverImagePath": "/iris/brand/cards/marketplace.png",
+  "shortDescription": "Resumo curto do tema.",
+  "longDescription": "Descrição completa do tema, intenção visual, atmosfera e casos de uso.",
+  "lightTokens": {
+    "primary": "#6F4BB2",
+    "primaryDeep": "#4E347F",
+    "primarySoft": "#EFE7F6",
+    "accent": "#9A7CA7",
+    "accentSoft": "#F7F1FA",
+    "emotion": "#B899D6",
+    "background": "#FAF7F2",
+    "surface": "#FFFFFF",
+    "surfaceSoft": "#FFFDF8",
+    "text": "#3A295F",
+    "textSecondary": "#5E4A76",
+    "textMuted": "#887898",
+    "border": "#E6DDF0"
+  },
+  "darkTokens": {
+    "primary": "#C8A8FF",
+    "primaryDeep": "#EFE3FF",
+    "primarySoft": "#2A1F3A",
+    "accent": "#B899D6",
+    "accentSoft": "#22172F",
+    "emotion": "#D8B9F4",
+    "background": "#0F0B16",
+    "surface": "#171021",
+    "surfaceSoft": "#20162D",
+    "text": "#FAF7FF",
+    "textSecondary": "#D8CEE6",
+    "textMuted": "#A89CB8",
+    "border": "#3A2B4A"
+  },
+  "background": {
+    "type": "aurora-lilac",
+    "animated": true,
+    "intensity": "soft"
+  },
+  "typography": {
+    "fontStyle": "editorial"
+  },
+  "layout": {
+    "radius": "dream",
+    "spacing": "comfortable",
+    "glass": "soft"
+  },
+  "animation": {
+    "motion": "balanced",
+    "backgroundAnimation": "slow-aurora"
+  },
+  "tags": ["lilas", "editorial", "suave"]
+}
