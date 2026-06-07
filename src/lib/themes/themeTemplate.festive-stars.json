@@ -1,0 +1,60 @@
+{
+  "slug": "iris-festive-stars",
+  "name": "Festive Stars",
+  "authorName": "IRIS Studio",
+  "category": "seasonal",
+  "pricingModel": "free",
+  "priceCents": 0,
+  "coverImagePath": "/iris/themes/festive-stars/cover.svg",
+  "previewImagePath": "/iris/themes/festive-stars/preview.svg",
+  "shortDescription": "Tema festivo com céu noturno, estrelas, brilho dourado e botões estrelados.",
+  "longDescription": "Um tema comemorativo para a IRIS com fundo de céu estrelado, atmosfera noturna, brilho suave, partículas visuais e botões com sensação de estrelas.",
+  "lightTokens": {
+    "primary": "#28316F",
+    "primaryDeep": "#11183D",
+    "primarySoft": "#E9ECFF",
+    "accent": "#D6A84F",
+    "accentSoft": "#FFF4D8",
+    "emotion": "#A98CFF",
+    "background": "#F8F5EC",
+    "surface": "#FFFFFF",
+    "surfaceSoft": "#FFFDF7",
+    "text": "#171B3A",
+    "textSecondary": "#4C5277",
+    "textMuted": "#7B819E",
+    "border": "#E5DECA"
+  },
+  "darkTokens": {
+    "primary": "#FFD98A",
+    "primaryDeep": "#FFF3CF",
+    "primarySoft": "#282344",
+    "accent": "#A98CFF",
+    "accentSoft": "#1B1734",
+    "emotion": "#FFD98A",
+    "background": "#060817",
+    "surface": "#101329",
+    "surfaceSoft": "#171A35",
+    "text": "#FFF8E7",
+    "textSecondary": "#D9D2EE",
+    "textMuted": "#A9A5C1",
+    "border": "#2B2F55"
+  },
+  "background": {
+    "type": "starry-sky",
+    "animated": true,
+    "intensity": "soft"
+  },
+  "typography": {
+    "fontStyle": "editorial"
+  },
+  "layout": {
+    "radius": "dream",
+    "spacing": "airy",
+    "glass": "soft"
+  },
+  "animation": {
+    "motion": "expressive",
+    "backgroundAnimation": "twinkle"
+  },
+  "tags": ["festivo", "estrelas", "ceu", "noturno", "celebracao"]
+}

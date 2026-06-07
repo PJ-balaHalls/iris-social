@@ -38,11 +38,11 @@ export type IrisThemeLayout = {
 
 export type IrisThemeAnimation = {
   motion: 'reduced' | 'balanced' | 'expressive';
-  backgroundAnimation?: 'none' | 'slow-aurora' | 'grain' | 'float';
+  backgroundAnimation?: 'none' | 'slow-aurora' | 'grain' | 'float' | 'twinkle';
 };
 
 export type IrisThemeBackground = {
-  type: 'plain' | 'radial-soft' | 'aurora-lilac' | 'editorial-grid';
+  type: 'plain' | 'radial-soft' | 'aurora-lilac' | 'editorial-grid' | 'starry-sky';
   animated: boolean;
   intensity: 'quiet' | 'soft' | 'strong';
 };

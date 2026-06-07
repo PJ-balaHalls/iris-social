@@ -385,13 +385,13 @@ export function ThemeCreatorClient() {
 
               <div className="grid gap-4 md:grid-cols-3">
                 {[
-                  ['backgroundType', 'Background', ['plain', 'radial-soft', 'aurora-lilac', 'editorial-grid']],
+                  ['backgroundType', 'Background', ['plain', 'radial-soft', 'aurora-lilac', 'editorial-grid', 'starry-sky']],
                   ['fontStyle', 'Fonte', ['editorial', 'modern', 'soft', 'mono']],
                   ['radius', 'Radius', ['sharp', 'soft', 'dream']],
                   ['spacing', 'Espaçamento', ['compact', 'comfortable', 'airy']],
                   ['glass', 'Glass', ['none', 'soft', 'strong']],
                   ['motion', 'Movimento', ['reduced', 'balanced', 'expressive']],
-                  ['backgroundAnimation', 'Animação de fundo', ['none', 'slow-aurora', 'grain', 'float']],
+                  ['backgroundAnimation', 'Animação de fundo', ['none', 'slow-aurora', 'grain', 'float', 'twinkle']],
                 ].map(([key, label, options]) => (
                   <label key={String(key)} className="block">
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#747D79]">

@@ -56,7 +56,8 @@ function backgroundFrom(value: unknown): IrisThemeBackground {
       source.type === 'plain' ||
       source.type === 'radial-soft' ||
       source.type === 'aurora-lilac' ||
-      source.type === 'editorial-grid'
+      source.type === 'editorial-grid' ||
+      source.type === 'starry-sky'
         ? source.type
         : 'radial-soft',
     animated: typeof source.animated === 'boolean' ? source.animated : false,
@@ -120,6 +121,7 @@ function animationFrom(value: unknown): IrisThemeAnimation {
       source.backgroundAnimation === 'slow-aurora' ||
       source.backgroundAnimation === 'grain' ||
       source.backgroundAnimation === 'float' ||
+      source.backgroundAnimation === 'twinkle' ||
       source.backgroundAnimation === 'none'
         ? source.backgroundAnimation
         : 'none',

@@ -215,3 +215,138 @@ html[data-theme='dark'][data-iris-theme='iris-lilac'] .bg-\[\#111A16\],
 html[data-theme='dark'][data-iris-theme='iris-lilac'] .bg-\[\#0F1512\] {
   background-color: #100B18 !important;
 }
+
+/* =========================================================
+   IRIS Theme — Festive Stars
+   ========================================================= */
+
+html[data-iris-theme='iris-festive-stars'] {
+  --iris-festive-star-gold: #FFD98A;
+  --iris-festive-star-violet: #A98CFF;
+  --iris-festive-night-deep: #060817;
+}
+
+html[data-theme-bg='starry-sky'] body {
+  background:
+    radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--iris-color-emotion) 22%, transparent), transparent 28rem),
+    radial-gradient(circle at 84% 12%, color-mix(in srgb, var(--iris-color-accent) 22%, transparent), transparent 26rem),
+    radial-gradient(circle at 50% 110%, color-mix(in srgb, var(--iris-color-primary) 16%, transparent), transparent 36rem),
+    linear-gradient(180deg, var(--iris-bg-primary), color-mix(in srgb, var(--iris-bg-primary) 82%, #050714));
+}
+
+html[data-theme='dark'][data-theme-bg='starry-sky'] body {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(169, 140, 255, 0.20), transparent 30rem),
+    radial-gradient(circle at 82% 14%, rgba(255, 217, 138, 0.16), transparent 26rem),
+    radial-gradient(circle at 44% 112%, rgba(40, 49, 111, 0.30), transparent 38rem),
+    linear-gradient(180deg, #060817 0%, #0B0E24 48%, #050714 100%);
+}
+
+html[data-theme-bg='starry-sky'] body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle, rgba(255, 248, 231, 0.95) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 217, 138, 0.85) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle, rgba(169, 140, 255, 0.72) 0 1px, transparent 1.8px);
+  background-size:
+    120px 120px,
+    190px 190px,
+    260px 260px;
+  background-position:
+    0 0,
+    42px 78px,
+    120px 30px;
+  opacity: 0.36;
+}
+
+html[data-theme-bg='starry-sky'][data-bg-animated='true'] body::before {
+  animation: iris-stars-drift 28s linear infinite;
+}
+
+html[data-theme-bg='starry-sky'][data-bg-animated='true'] body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(255, 217, 138, 0.18), transparent 18rem),
+    radial-gradient(circle at 74% 22%, rgba(169, 140, 255, 0.14), transparent 20rem);
+  opacity: 0.8;
+  animation: iris-stars-pulse 7s ease-in-out infinite alternate;
+}
+
+html[data-iris-theme='iris-festive-stars'] button,
+html[data-iris-theme='iris-festive-stars'] a {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+
+html[data-iris-theme='iris-festive-stars'] button:hover,
+html[data-iris-theme='iris-festive-stars'] a:hover {
+  transform: translateY(-1px);
+}
+
+html[data-iris-theme='iris-festive-stars'] button[class*="bg-[var(--iris-color-primary)]"],
+html[data-iris-theme='iris-festive-stars'] a[class*="bg-[var(--iris-color-primary)]"],
+html[data-iris-theme='iris-festive-stars'] .bg-\[var\(--iris-color-primary\)\] {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle at 18% 28%, rgba(255, 248, 231, 0.95) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 72% 34%, rgba(255, 217, 138, 0.95) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 44% 76%, rgba(255, 248, 231, 0.75) 0 1px, transparent 1.7px),
+    linear-gradient(135deg, var(--iris-color-primary), var(--iris-color-accent));
+  box-shadow:
+    0 16px 40px color-mix(in srgb, var(--iris-color-primary) 28%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+html[data-iris-theme='iris-festive-stars'] .iris-theme-card {
+  box-shadow:
+    0 26px 90px rgba(6, 8, 23, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+html[data-theme='dark'][data-iris-theme='iris-festive-stars'] .iris-theme-card {
+  background:
+    linear-gradient(135deg, rgba(16, 19, 41, 0.82), rgba(23, 26, 53, 0.62));
+  box-shadow:
+    0 32px 110px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@keyframes iris-stars-drift {
+  from {
+    background-position:
+      0 0,
+      42px 78px,
+      120px 30px;
+  }
+
+  to {
+    background-position:
+      240px 180px,
+      282px 258px,
+      360px 210px;
+  }
+}
+
+@keyframes iris-stars-pulse {
+  from {
+    opacity: 0.42;
+    filter: blur(0px);
+  }
+
+  to {
+    opacity: 0.88;
+    filter: blur(1px);
+  }
+}
