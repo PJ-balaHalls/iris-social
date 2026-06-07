@@ -1,19 +1,15 @@
 import {
   Accessibility,
-  Activity,
+  Baby,
   BadgeCheck,
-  Bell,
-  Bot,
   Brain,
   Compass,
   CreditCard,
-  Crown,
   Database,
-  Gift,
-  HeartHandshake,
-  Image as ImageIcon,
-  Leaf,
+  EyeOff,
+  Languages,
   LockKeyhole,
+  MonitorSmartphone,
   Palette,
   Plug,
   Settings,
@@ -28,22 +24,18 @@ type SettingsIconProps = {
   className?: string;
 };
 
-const iconMap: Record<string, typeof Settings> = {
+const icons = {
   Accessibility,
-  Activity,
+  Baby,
   BadgeCheck,
-  Bell,
-  Bot,
   Brain,
   Compass,
   CreditCard,
-  Crown,
   Database,
-  Gift,
-  HeartHandshake,
-  Image: ImageIcon,
-  Leaf,
+  EyeOff,
+  Languages,
   LockKeyhole,
+  MonitorSmartphone,
   Palette,
   Plug,
   ShieldCheck,
@@ -56,7 +48,7 @@ export function SettingsIcon({
   size = 18,
   className,
 }: SettingsIconProps) {
-  const Icon = iconMap[name] || Settings;
+  const Icon = icons[name as keyof typeof icons] || Settings;
 
   return <Icon size={size} strokeWidth={1.8} className={className} />;
 }

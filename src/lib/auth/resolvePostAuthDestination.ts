@@ -12,7 +12,7 @@ export async function resolvePostAuthDestination(
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('first_name,full_name,birth_date,username,onboarding_status')
+    .select('first_name,full_name,birth_date,username,onboarding_status,onboarding_completed')
     .eq('id', userId)
     .maybeSingle();
 

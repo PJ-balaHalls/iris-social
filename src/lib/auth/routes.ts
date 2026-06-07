@@ -6,6 +6,7 @@ export const IRIS_ROUTES = {
   authRegister: '/auth/register',
   authCallback: '/auth/callback',
 
+  onboardingWelcome: '/onboarding/welcome',
   onboardingBasicInfo: '/onboarding/basic-info',
   onboardingUsername: '/onboarding/username',
   onboardingFinish: '/onboarding/finish',
@@ -18,7 +19,30 @@ export type IrisProfileRouteState = {
   birth_date?: string | null;
   username?: string | null;
   onboarding_status?: string | null;
+  onboarding_completed?: boolean | null;
 };
+
+const protectedPrefixes = [
+  '/iris',
+  '/onboarding',
+  '/settings',
+  '/ilife',
+  '/uslife',
+  '/ai',
+  '/notifications',
+  '/search',
+  '/profile',
+  '/feed',
+  '/communities',
+  '/messages',
+  '/videos',
+  '/marketplace',
+  '/creator',
+  '/billing',
+  '/safety',
+  '/me',
+  '/app',
+];
 
 export function isAuthRoute(pathname: string) {
   return (
@@ -29,11 +53,12 @@ export function isAuthRoute(pathname: string) {
 }
 
 export function isProtectedRoute(pathname: string) {
-  return pathname.startsWith('/iris') || pathname.startsWith('/onboarding');
+  return protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
 export function isEssentialOnboardingRoute(pathname: string) {
   return (
+    pathname === IRIS_ROUTES.onboardingWelcome ||
     pathname === IRIS_ROUTES.onboardingBasicInfo ||
     pathname === IRIS_ROUTES.onboardingUsername
   );
@@ -41,6 +66,12 @@ export function isEssentialOnboardingRoute(pathname: string) {
 
 export function getPostAuthDestinationFromProfile(profile?: IrisProfileRouteState | null) {
   if (!profile) return IRIS_ROUTES.onboardingBasicInfo;
+
+  const completed =
+    profile.onboarding_completed === true ||
+    String(profile.onboarding_status || '').toLowerCase() === 'completed';
+
+  if (completed) return IRIS_ROUTES.app;
 
   const hasBasicInfo = Boolean((profile.first_name || profile.full_name) && profile.birth_date);
   const hasUsername = Boolean(profile.username);

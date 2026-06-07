@@ -80,5 +80,5 @@ export async function completeOnboardingAction(data: OnboardingPayload) {
     }
   });
 
-  return { success: true, redirect: '/app/home' };
+  return { success: true, redirect: '/iris' };
 }

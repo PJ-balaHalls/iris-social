@@ -1,6 +1,8 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { resolvePostAuthDestination } from '@/lib/auth/resolvePostAuthDestination';
+import { IRIS_ROUTES, isSafeInternalPath } from '@/lib/auth/routes';
 import { createServer } from '@/lib/supabase/server';
 import {
   AUTH_LOGIN_ERRORS,
@@ -24,6 +26,7 @@ function getRequiredString(formData: FormData, key: string) {
 export async function loginAction(formData: FormData) {
   const email = getRequiredString(formData, 'email');
   const password = getRequiredString(formData, 'password');
+  const next = getRequiredString(formData, 'next');
 
   if (!email || !password) {
     const irisError = AUTH_LOGIN_ERRORS.EMPTY_CREDENTIALS;
@@ -50,28 +53,13 @@ export async function loginAction(formData: FormData) {
     return toAuthActionError(irisError);
   }
 
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('onboarding_completed')
-    .eq('id', data.user.id)
-    .single();
+  const destination = await resolvePostAuthDestination(supabase, data.user.id);
 
-  if (profileError && profileError.code !== 'PGRST116') {
-    const irisError = AUTH_LOGIN_ERRORS.PROFILE_LOOKUP_FAILED;
-    logAuthError(irisError, {
-      providerMessage: profileError.message,
-      providerCode: profileError.code,
-      userId: data.user.id,
-    });
-
-    return toAuthActionError(irisError);
+  if (destination === IRIS_ROUTES.app && isSafeInternalPath(next)) {
+    redirect(next);
   }
 
-  if (profile?.onboarding_completed) {
-    redirect('/app/home');
-  }
-
-  redirect('/onboarding/welcome');
+  redirect(destination);
 }
 
 export async function registerAction(formData: FormData) {
@@ -113,5 +101,5 @@ export async function registerAction(formData: FormData) {
     return toAuthActionError(irisError);
   }
 
-  redirect('/onboarding/welcome');
+  redirect(IRIS_ROUTES.onboardingWelcome);
 }
