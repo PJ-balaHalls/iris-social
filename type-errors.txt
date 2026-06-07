@@ -1,1 +1,0 @@
-src/app/(app)/settings/appearance/_components/ThemePreviewCard.tsx(4,15): error TS2459: Module '"@/lib/themes/themeCatalog"' declares 'IrisThemeDefinition' locally, but it is not exported.
