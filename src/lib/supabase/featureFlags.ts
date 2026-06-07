@@ -1,5 +1,5 @@
 // src/lib/supabase/featureFlags.ts
-import { createClient } from './server';
+import { createServer } from './server';
 import { FeatureFlag, defaultFlags } from '@/feature-flags/flags.config';
 
 export async function getUserFeatureFlags(userId?: string): Promise<Record<FeatureFlag, boolean>> {
@@ -8,7 +8,7 @@ export async function getUserFeatureFlags(userId?: string): Promise<Record<Featu
     return defaultFlags;
   }
 
-  const supabase = createClient();
+  const supabase = createServer();
   
   // Buscar flags globais e específicas do usuário
   const { data: globalFlags, error: globalError } = await supabase

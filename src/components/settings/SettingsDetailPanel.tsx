@@ -36,8 +36,8 @@ function resolveSourceData({
   planInterestRequests,
 }: SettingsDetailPanelProps) {
   if (option.source === 'subscriptions') return subscription;
-  if (option.source === 'uslife_invites') return uslifeInvites;
-  if (option.source === 'plan_interest_requests') return planInterestRequests;
+  if (String(option.source) === 'uslife_invites') return uslifeInvites;
+  if (String(option.source) === 'plan_interest_requests') return planInterestRequests;
   return profile;
 }
 

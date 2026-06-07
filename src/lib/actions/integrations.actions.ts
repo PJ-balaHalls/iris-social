@@ -31,8 +31,8 @@ export async function updateIntegrationPreferencesAction(formData: FormData) {
     redirect('/auth/login');
   }
 
-  let integration_preferences: Record<string, unknown>;
-  let integration_data: Record<string, unknown>;
+  let integration_preferences: Record<string, unknown> = {};
+  let integration_data: Record<string, unknown> = {};
 
   try {
     integration_preferences = parseJson(getString(formData, 'integration_preferences'));

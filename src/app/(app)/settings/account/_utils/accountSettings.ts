@@ -158,3 +158,17 @@ export function downloadJson(filename: string, payload: unknown) {
 
   URL.revokeObjectURL(url);
 }
+
+
+export function scrollToSection(sectionId: string) {
+  if (typeof window === 'undefined') return;
+
+  const element = document.getElementById(sectionId);
+
+  if (!element) return;
+
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+}

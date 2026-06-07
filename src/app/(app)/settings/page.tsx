@@ -20,6 +20,7 @@ import {
   ShieldCheck,
   Sparkles,
   UserRound,
+  type LucideIcon,
 } from 'lucide-react';
 
 type SettingStatus = 'ready' | 'recommended' | 'planned' | 'sensitive';
@@ -31,11 +32,7 @@ type SettingOption = {
   description: string;
   group: string;
   href: string;
-  icon: React.ComponentType<{
-    size?: number;
-    className?: string;
-    strokeWidth?: number;
-  }>;
+  icon: LucideIcon;
   status: SettingStatus;
 };
 

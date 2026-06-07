@@ -3,7 +3,7 @@
 import type { ComponentType } from 'react';
 import Link from 'next/link';
 import {
-  ArrowRight,
+ArrowRight,
   Bell,
   BookOpen,
   CheckCircle2,
@@ -26,6 +26,7 @@ import {
   Trash2,
   User,
   Users,
+  type LucideIcon,
 } from 'lucide-react';
 import { useOnboardingStore } from '@/lib/store/onboardingStore';
 import {
@@ -35,11 +36,7 @@ import {
   type SettingsShortcut,
 } from '../_data/settingsData';
 
-type IconComponent = ComponentType<{
-  className?: string;
-  size?: number;
-  strokeWidth?: number;
-}>;
+type IconComponent = LucideIcon;
 
 const iconRegistry: Record<string, IconComponent> = {
   bell: Bell,

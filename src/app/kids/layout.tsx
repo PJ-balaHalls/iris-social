@@ -1,1 +1,9 @@
-// Placeholder for layout.tsx
+import type { ReactNode } from 'react';
+
+export default function KidsLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return <>{children}</>;
+}

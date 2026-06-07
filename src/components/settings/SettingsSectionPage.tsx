@@ -64,7 +64,7 @@ export async function SettingsSectionPage({
 
   const canEdit =
     option.source === 'profiles' &&
-    fields.some((field) => isEditableField(field.type, field.readonly));
+    fields.some((field) => isEditableField(field.type, ('readonly' in field ? field.readonly : false)));
 
   return (
     <main className="min-h-screen bg-[#FAF7F2] px-4 py-5 text-[#1B3A2E] sm:px-6 lg:px-8">

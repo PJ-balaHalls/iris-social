@@ -85,10 +85,10 @@ export function Header() {
             </a>
           ))}
           <div className="flex flex-col gap-2 pt-2">
-            <Button variant="ghost" fullWidth>
+            <Button variant="ghost">
               Entrar
             </Button>
-            <Button variant="primary" fullWidth>
+            <Button variant="primary">
               Criar conta
             </Button>
           </div>
